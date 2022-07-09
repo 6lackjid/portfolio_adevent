@@ -13,7 +13,7 @@ import os
 from pathlib import Path
 import json
 
-
+BASE_DIR = Path(__file__).resolve().parent.parent
 ...
 if os.path.exists(os.path.join(BASE_DIR, 'secrets.json')):
     with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
@@ -41,7 +41,7 @@ def get_secret(setting, secrets=secrets, is_optional=False): #  設定が見つ�
 
 SECRET_KEY = get_secret('SECRET_KEY')
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -67,8 +67,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'apis.apps.ApisConfig',
+    'account.apps.AccountConfig',
     
-    'frontend',
+    # 'frontend',
     
     'corsheaders',
     
@@ -154,8 +155,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static/')
+# ]
+
+
+
+MEDIA_URL = '/media/'
+
+
+MEDIA_ROOT = 'media/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -164,3 +176,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
 ]
+
